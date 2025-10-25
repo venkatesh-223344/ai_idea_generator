@@ -1,0 +1,141 @@
+/* ======= FONT IMPORT ======= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;700&display=swap');
+
+/* ======= GLOBAL ======= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+  color: #1e293b;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* ======= MAIN CONTAINER ======= */
+.app-container {
+  background: #ffffff;
+  width: 100%;
+  max-width: 680px;
+  border-radius: 18px;
+  padding: 40px 45px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.app-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 45px rgba(0, 0, 0, 0.12);
+}
+
+/* ======= HEADER ======= */
+h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+    background-clip: text;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 35px;
+}
+
+/* ======= INPUT SECTION ======= */
+.input-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  background-color: #f1f5f9;
+  font-size: 1rem;
+  color: #1e293b;
+  transition: all 0.2s ease;
+}
+
+.input-area input::placeholder {
+  color: #94a3b8;
+}
+
+.input-area input:focus {
+  outline: none;
+  background-color: #fff;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* ======= BUTTON ======= */
+.input-area button {
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.input-area button:hover {
+  background: linear-gradient(90deg, #2563eb, #4f46e5);
+  transform: translateY(-1px);
+}
+
+/* ======= RESULT BOX ======= */
+.result-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px 26px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #334155;
+  white-space: pre-line;
+  min-height: 120px;
+  transition: all 0.3s ease;
+}
+
+.result-box:hover {
+  background: #f1f5f9;
+}
+
+/* ======= FOOTER ======= */
+.footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.footer a {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}  
