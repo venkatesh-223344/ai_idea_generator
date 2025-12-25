@@ -6,7 +6,13 @@ import OpenAI from "openai";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+const startParams = {
+  origin: process.env.CLIENT_URL || "http://localhost:5173", // Allow specific client or default to local Vite
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(startParams));
 app.use(express.json());
 
 const openai = new OpenAI({

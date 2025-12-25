@@ -13,7 +13,9 @@ function App() {
     setLoading(true);
     setIdeas(null);
     try {
-      const response = await axios.post("http://localhost:5000/generate", { businessType });
+      // Use environment variable for the server URL, default to localhost for development
+      const API_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:5000";
+      const response = await axios.post(`${API_URL}/generate`, { businessType });
       setIdeas(response.data);
     } catch (error) {
       console.error(error);
