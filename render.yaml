@@ -1,0 +1,30 @@
+services:
+  # The Backend Service
+  - type: web
+    name: ai-idea-server
+    env: node
+    rootDirectory: server
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: OPENROUTER_API_KEY
+        sync: false # User will input this in the dashboard
+      - key: CLIENT_URL
+        sync: false # User will input this after deploying client
+
+  # The Frontend Service
+  - type: static
+    name: ai-idea-client
+    env: static
+    rootDirectory: client
+    buildCommand: npm run build
+    publishDirectory: dist
+    envVars:
+      - key: VITE_SERVER_URL
+        fromService:
+          type: web
+          name: ai-idea-server
+          envVar: RenderServiceAddress # Auto-links to the server URL!
