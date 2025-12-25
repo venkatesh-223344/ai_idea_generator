@@ -3,34 +3,80 @@ import axios from "axios";
 import "./App.css";
 
 function App() {
-  const [topic, setTopic] = useState("");
-  const [ideas, setIdeas] = useState([]);
+  const [businessType, setBusinessType] = useState("");
+  const [ideas, setIdeas] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleGenerate = async (e) => {
-    e.preventDefault();
-    const res = await axios.post("http://localhost:5000/generate", { topic });
-    setIdeas(res.data.ideas);
+
+  const generateIdeas = async () => {
+    if (!businessType.trim()) return;
+    setLoading(true);
+    setIdeas(null);
+    try {
+      const response = await axios.post("http://localhost:5000/generate", { businessType });
+      setIdeas(response.data);
+    } catch (error) {
+      console.error(error);
+      const errorMessage = error.response?.data?.error || "Error generating ideas";
+      alert(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="app">
-      <h1>💡 AI Idea Generator</h1>
-      <form onSubmit={handleGenerate}>
+    <div className="app-container">
+      <h1>💡 AI Business Architect</h1>
+      <p className="subtitle">Instant ideas for your next big venture!</p>
+
+      <div className="input-area">
         <input
           type="text"
-          placeholder="Enter a topic..."
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-          required
+          placeholder="Enter your Business Type (e.g. Bakery, Tech Startup)..."
+          value={businessType}
+          onChange={(e) => setBusinessType(e.target.value)}
         />
-        <button type="submit">Generate</button>
-      </form>
+        <button onClick={generateIdeas} disabled={loading}>
+          {loading ? "Dreaming..." : "Generate Ideas"}
+        </button>
+      </div>
 
-      <ul>
-        {ideas.map((idea, i) => (
-          <li key={i}>{idea}</li>
-        ))}
-      </ul>
+      <div className="result-area">
+        {ideas ? (
+          <div className="ideas-grid">
+            <div className="idea-card">
+              <h2>🚀 Business Ideas</h2>
+              <ul>
+                {ideas.businessIdeas?.map((idea, index) => (
+                  <li key={index}>{idea}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="idea-card">
+              <h2>📈 Marketing Ideas</h2>
+              <ul>
+                {ideas.marketingIdeas?.map((idea, index) => (
+                  <li key={index}>{idea}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="idea-card">
+              <h2>📝 Content Ideas</h2>
+              <ul>
+                {ideas.contentIdeas?.map((idea, index) => (
+                  <li key={index}>{idea}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <div className="placeholder-text">
+            <p>Enter a business type and click Generate to get started.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

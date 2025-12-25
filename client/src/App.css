@@ -104,27 +104,78 @@ h1 {
   transform: translateY(-1px);
 }
 
-/* ======= RESULT BOX ======= */
-.result-box {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 24px 26px;
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: #334155;
-  white-space: pre-line;
-  min-height: 120px;
-  transition: all 0.3s ease;
+/* ======= RESULT AREA ======= */
+.result-area {
+  margin-top: 20px;
 }
 
-.result-box:hover {
-  background: #f1f5f9;
+.placeholder-text {
+  text-align: center;
+  color: #64748b;
+  font-size: 1.1rem;
+  padding: 40px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px dashed #cbd5e1;
 }
+
+.ideas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.idea-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.idea-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.idea-card h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #1e293b;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 12px;
+}
+
+.idea-card ul {
+  list-style: none;
+}
+
+.idea-card li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #475569;
+}
+
+.idea-card li::before {
+  content: "•";
+  position: absolute;
+  left: 6px;
+  color: #3b82f6;
+  font-weight: bold;
+}
+
+.idea-card:nth-child(1) li::before { color: #3b82f6; } /* Business - Blue */
+.idea-card:nth-child(2) li::before { color: #8b5cf6; } /* Marketing - Purple */
+.idea-card:nth-child(3) li::before { color: #ec4899; } /* Content - Pink */
 
 /* ======= FOOTER ======= */
 .footer {
-  margin-top: 30px;
+  margin-top: 40px;
   text-align: center;
   font-size: 0.9rem;
   color: #94a3b8;
