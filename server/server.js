@@ -15,20 +15,35 @@ const startParams = {
 app.use(cors(startParams));
 app.use(express.json());
 
-const openai = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENROUTER_API_KEY,
-  defaultHeaders: {
-    "HTTP-Referer": process.env.SITE_URL || "http://localhost:5000", // Optional, for including your app on openrouter.ai rankings.
-    "X-Title": process.env.SITE_NAME || "AI Idea Generator", // Optional. Shows in rankings on openrouter.ai.
-  }
-});
+// Debugging: Log env vars (redacted)
+console.log("Starting server...");
+console.log("PORT:", process.env.PORT);
+console.log("OPENROUTER_API_KEY present:", !!process.env.OPENROUTER_API_KEY);
+console.log("CLIENT_URL:", process.env.CLIENT_URL);
+
+let openai;
+try {
+  openai = new OpenAI({
+    baseURL: "https://openrouter.ai/api/v1",
+    apiKey: process.env.OPENROUTER_API_KEY || "dummy-key-for-init",
+    defaultHeaders: {
+      "HTTP-Referer": process.env.SITE_URL || "http://localhost:5000",
+      "X-Title": process.env.SITE_NAME || "AI Idea Generator",
+    }
+  });
+} catch (e) {
+  console.error("CRITICAL: OpenAI Client Failed to Initialize", e);
+}
 
 app.post("/generate", async (req, res) => {
   try {
     const { businessType } = req.body;
     if (!businessType) {
       return res.status(400).json({ error: "Business Type is required" });
+    }
+
+    if (!openai) {
+      return res.status(500).json({ error: "OpenAI client is not initialized. Please checks server logs." });
     }
 
     const prompt = `For a "${businessType}" business, generate:
